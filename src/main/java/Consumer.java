@@ -10,13 +10,13 @@ public class Consumer {
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
-        HttpEntity httpEntity = new HttpEntity<>(null, null);
+        HttpEntity<Object> httpEntity = new HttpEntity<>(null, null);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange("http://94.198.50.185:7081/api/users", HttpMethod.GET, httpEntity, String.class);
-        String cookie = responseEntity.getHeaders().getFirst(httpHeaders.SET_COOKIE);
+        String cookie = responseEntity.getHeaders().getFirst(HttpHeaders.SET_COOKIE);
         System.out.println(cookie);
 
-        httpHeaders.set(httpHeaders.COOKIE, cookie);
+        httpHeaders.set(HttpHeaders.COOKIE, cookie);
 
         User user = new User(3L, "James", "Brown", (byte) 26);
         httpEntity = new HttpEntity<>(user, httpHeaders);
